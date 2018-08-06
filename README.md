@@ -23,7 +23,7 @@ N/A
 ## Dependencies
 
 * [NodeJS v8.x](https://nodejs.org/)
-* [42d](https://github.com/turtlecoin/turtlecoin/releases) v0.5.0 or higher
+* [42d](https://github.com/turtlecoin/turtlecoin/releases) v0.042 or higher
 
 ## Easy Start
 

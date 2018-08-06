@@ -4,7 +4,7 @@
 
 'use strict'
 
-const TurtleCoindRPC = require('turtlecoin-rpc').TurtleCoind
+const 42dRPC = require('42-rpc').42d
 const WebSocket = require('./lib/websocket.js')
 const pty = require('node-pty')
 const util = require('util')
@@ -23,9 +23,9 @@ const daemonResponses = {
 }
 const blockTargetTime = 30
 
-const TurtleCoind = function (opts) {
+const 42d = function (opts) {
   opts = opts || {}
-  if (!(this instanceof TurtleCoind)) return new TurtleCoind(opts)
+  if (!(this instanceof 42d)) return new 42d(opts)
 
   this.pollingInterval = opts.pollingInterval || 10000
   this.maxPollingFailures = opts.maxPollingFailures || 3
@@ -37,9 +37,9 @@ const TurtleCoind = function (opts) {
   this.enableWebSocket = opts.enableWebSocket || true
   this.webSocketPassword = opts.webSocketPassword || false
 
-  // Begin TurtleCoind options
-  this.path = opts.path || path.resolve(__dirname, './TurtleCoind')
-  this.dataDir = opts.dataDir || path.resolve(os.homedir(), './.TurtleCoin')
+  // Begin 42d options
+  this.path = opts.path || path.resolve(__dirname, './42d')
+  this.dataDir = opts.dataDir || path.resolve(os.homedir(), './.42')
   this.testnet = opts.testnet || false
   this.enableCors = opts.enableCors || false
   this.enableBlockExplorer = opts.enableBlockExplorer || true
@@ -117,9 +117,9 @@ const TurtleCoind = function (opts) {
     }
   })
 }
-inherits(TurtleCoind, EventEmitter)
+inherits(42d, EventEmitter)
 
-TurtleCoind.prototype.start = function () {
+42d.prototype.start = function () {
   var databaseLockfile = path.resolve(util.format('%s/DB/LOCK', this.dataDir))
   if (fs.existsSync(databaseLockfile)) {
     this.emit('error', 'Database LOCK file exists...')
@@ -145,7 +145,7 @@ TurtleCoind.prototype.start = function () {
       return false
     }
   }
-  this.emit('info', 'Attempting to start turtlecoind-ha...')
+  this.emit('info', 'Attempting to start 42d-ha...')
   if (!fs.existsSync(this.path)) {
     this.emit('error', '************************************************')
     this.emit('error', util.format('%s could not be found', this.path))

@@ -13,7 +13,7 @@ The sample **service.js** includes how to automatically restart the daemon if it
 5. [Documentation](#documentation)
    1. [Methods](#methods)
    2. [Events](#events)
-   3. [42d RPC API Interface](#turtlecoind-rpc-api-interface)
+   3. [42d RPC API Interface](#42d-rpc-api-interface)
    4. [WebSocket Connections](#websocket-connections)
 
 ## To Do
@@ -23,21 +23,18 @@ N/A
 ## Dependencies
 
 * [NodeJS v8.x](https://nodejs.org/)
-* [42d](https://github.com/turtlecoin/turtlecoin/releases) v0.042 or higher
+* [42d](https://github.com/FourtyTwo/42/releases) v0.042 or higher
 
 ## Easy Start
 
 You *must* copy ```42d``` into the ```42d-ha``` folder for the easy start process to occur.
 
 ```bash
-git clone https://github.com/brandonlehmann/turtlecoind-ha.git
-cd turtlecoind-ha
+git clone https://github.com/PsychoSterope/42d-ha.git
+cd 42d-ha
 cp <42d> .
 npm i & node service.js
 ```
-
-**It is highly recommended that you use [checkpoints](https://github.com/turtlecoin/turtlecoin/wiki/Using-checkpoints) when starting fresh or you'll need to wait a while for the sync to occur.**
-
 ## Keep it Running
 
 I'm a big fan of PM2 so if you don't have it installed, the setup is quite simple.
@@ -48,7 +45,7 @@ npm install -g pm2
 pm2 startup
 pm2 install pm2-logrotate
 
-pm2 start service.js --name turtlecoind
+pm2 start service.js --name 42d
 pm2 save
 ```
 

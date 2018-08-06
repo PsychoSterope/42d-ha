@@ -1,6 +1,6 @@
-# TurtleCoind High-Availability Daemon Wrapper
+# 42d High-Availability Daemon Wrapper
 
-This project is designed to wrap the TurtleCoind daemon on a *nix system and monitor it for hangups, locks, fork, or other events that cause the daemon to stop responding to requests in an accurate manner.
+This project is designed to wrap the 42d daemon on a *nix system and monitor it for hangups, locks, fork, or other events that cause the daemon to stop responding to requests in an accurate manner.
 
 The sample **service.js** includes how to automatically restart the daemon if it hangs, locks, or otherwise stops responding.
 
@@ -13,7 +13,7 @@ The sample **service.js** includes how to automatically restart the daemon if it
 5. [Documentation](#documentation)
    1. [Methods](#methods)
    2. [Events](#events)
-   3. [TurtleCoind RPC API Interface](#turtlecoind-rpc-api-interface)
+   3. [42d RPC API Interface](#turtlecoind-rpc-api-interface)
    4. [WebSocket Connections](#websocket-connections)
 
 ## To Do
@@ -23,16 +23,16 @@ N/A
 ## Dependencies
 
 * [NodeJS v8.x](https://nodejs.org/)
-* [TurtleCoind](https://github.com/turtlecoin/turtlecoin/releases) v0.5.0 or higher
+* [42d](https://github.com/turtlecoin/turtlecoin/releases) v0.5.0 or higher
 
 ## Easy Start
 
-You *must* copy ```TurtleCoind``` into the ```turtlecoind-ha``` folder for the easy start process to occur.
+You *must* copy ```42d``` into the ```42d-ha``` folder for the easy start process to occur.
 
 ```bash
 git clone https://github.com/brandonlehmann/turtlecoind-ha.git
 cd turtlecoind-ha
-cp <TurtleCoind> .
+cp <42d> .
 npm i & node service.js
 ```
 
@@ -56,11 +56,11 @@ pm2 save
 
 ### Initialization
 
-Practically all TurtleCoind command line arguments are exposed in the constructor method. Simply include them in your list of options to get activate or use them. Default values are defined below.
+Practically all 42d command line arguments are exposed in the constructor method. Simply include them in your list of options to get activate or use them. Default values are defined below.
 
 ```javascript
-var daemon = new TurtleCoind({
-  // These are our TurtleCoind-ha options
+var daemon = new 42d({
+  // These are our 42d-ha options
   pollingInterval: 10000, // How often to check the daemon in milliseconds
   maxPollingFailures: 3, // How many polling intervals can fail before we emit a down event?
   checkHeight: true, // Check the daemon block height against known trusted nodes
@@ -71,9 +71,9 @@ var daemon = new TurtleCoind({
   enableWebSocket: true, // Enables a socket.io websocket server on the rpcBindPort + 1
   webSocketPassword: false, // Set this to a password to use for the privileged socket events.
   
-  // These are the standard TurtleCoind options
-  path: './TurtleCoind', // Where can I find TurtleCoind?
-  dataDir: '~/.TurtleCoin', // Where do you store your blockchain?
+  // These are the standard 42d options
+  path: './42d', // Where can I find 42d?
+  dataDir: '~/.42', // Where do you store your blockchain?
   testnet: false, // Use the testnet?
   enableCors: false, // Enable CORS support for the domain in this value
   enableBlockExplorer: true, // Enable the block explorer
@@ -217,7 +217,7 @@ daemon.on('data', (data) => {
 
 ### Event - *desync*
 
-This event is emitted when the daemon has lost synchronization with the TurtleCoin network
+This event is emitted when the daemon has lost synchronization with the 42 network
 
 ```javascript
 daemon.on('descync', (daemonHeight, networkHeight, deviance) => {
@@ -257,7 +257,7 @@ daemon.on('info', (info) => {
 
 ### Event - *ready*
 
-This event is emitted when the daemon is synchronized with the TurtleCoin network and is passing all the checks we have for it. It returns the equivalent of a */getinfo* call to the RPC server with a few minor additions.
+This event is emitted when the daemon is synchronized with the 42 network and is passing all the checks we have for it. It returns the equivalent of a */getinfo* call to the RPC server with a few minor additions.
 
 ```javascript
 daemon.on('ready', (info) => {
@@ -289,7 +289,7 @@ daemon.on('ready', (info) => {
 
 ### Event - *start*
 
-This event is emitted when the daemon starts. The callback contains the command line arguments supplied to TurtleCoind.
+This event is emitted when the daemon starts. The callback contains the command line arguments supplied to 42d.
 
 ```javascript
 daemon.on('start', (executablePath, args) => {
@@ -319,7 +319,7 @@ daemon.on('stopped', () => {
 
 ### Event - *synced*
 
-This event is emitted when the daemon has synchronized with the TurtleCoin network.
+This event is emitted when the daemon has synchronized with the 42 network.
 
 ```javascript
 daemon.on('synced', () => {
@@ -346,9 +346,9 @@ daemon.on('topblock', (height) => {
   // do something
 })
 ```
-## TurtleCoind RPC API Interface
+## 42d RPC API Interface
 
-As we can actually run this wrapper inside another nodeJS project, we expose all of the TurtleCoind RPC API commands via the ```daemon.api``` property. Each of the below methods are [Javascript Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises). For safety sake, **always** handle your promise catches as we do use them properly.
+As we can actually run this wrapper inside another nodeJS project, we expose all of the 42d RPC API commands via the ```daemon.api``` property. Each of the below methods are [Javascript Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises). For safety sake, **always** handle your promise catches as we do use them properly.
 
 Methods noted having options have parameters that may be *optional* or *required* as documented.
 
